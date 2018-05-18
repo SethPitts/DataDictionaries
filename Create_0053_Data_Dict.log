@@ -1,0 +1,694 @@
+1                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+NOTE: Copyright (c) 2002-2012 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M4) 
+      Licensed to THE EMMES CORPORATION, Site 70012501.
+NOTE: This session is executing on the W32_7PRO  platform.
+
+
+
+NOTE: Updated analytical products:
+      
+      SAS/STAT 14.2
+      SAS/IML 14.2
+
+NOTE: Additional host information:
+
+ W32_7PRO WIN 6.1.7601 Service Pack 1 Workstation
+
+NOTE: SAS initialization used:
+      real time           2.78 seconds
+      cpu time            0.49 seconds
+      
+1          LIBNAME sasdata "G:\NIDADSC\NDB\SAS\PROD_SAS_CUP\SAS\meta";
+NOTE: Libref SASDATA was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: G:\NIDADSC\NDB\SAS\PROD_SAS_CUP\SAS\meta
+2          
+3          LIBNAME protdata
+3        ! "G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData";
+NOTE: Libref PROTDATA was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: 
+      G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData
+4          
+5          /* filter the metadata sas table by the protocol you're looking for
+6          by filter PROTSEG by the protocol8*/
+7          
+8          data protdata.prot_meta;
+9           set sasdata.meta;
+10          if find(PROTSEG, "0053") > 0;
+11         run;
+
+NOTE: There were 18109 observations read from the data set SASDATA.META.
+NOTE: The data set PROTDATA.PROT_META has 2443 observations and 56 variables.
+NOTE: DATA statement used (Total process time):
+      real time           5.33 seconds
+      cpu time            0.04 seconds
+      
+
+12         
+13         proc sort data= protdata.prot_meta;
+14         	by PROTSEG SCREENID SEQ;
+15         run;
+
+NOTE: There were 2443 observations read from the data set PROTDATA.PROT_META.
+2                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+NOTE: The data set PROTDATA.PROT_META has 2443 observations and 56 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           1.45 seconds
+      cpu time            0.03 seconds
+      
+
+16         
+17         proc export data= protdata.prot_meta
+18         	dbms=csv
+19         	replace
+20         	outfile='G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaDa
+20       ! ta\0053_Data_Dict_by_seq.csv';
+21         run;
+
+22          /**********************************************************************
+23          *   PRODUCT:   SAS
+24          *   VERSION:   9.4
+25          *   CREATOR:   External File Interface
+26          *   DATE:      15MAY18
+27          *   DESC:      Generated SAS Datastep Code
+28          *   TEMPLATE SOURCE:  (None Specified.)
+29          ***********************************************************************/
+30             data _null_;
+31             %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+32             %let _EFIREC_ = 0;     /* clear export record count macro variable */
+33             file
+33       ! 'G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_D
+33       ! ata_Dict_by_seq.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+34             if _n_ = 1 then        /* write column names or labels */
+35              do;
+36                put
+37                   "PROJID"
+38                ','
+39                   "PROTSEG"
+40                ','
+41                   "SCREENID"
+42                ','
+43                   "SCREENNAME"
+44                ','
+45                   "TABLE_NAME"
+46                ','
+47                   "FIELD_NAME"
+48                ','
+49                   "FIELD_TYPE"
+50                ','
+51                   "FIELD_LEN"
+52                ','
+53                   "FIELD_DEC"
+54                ','
+55                   "FLDFORMAT"
+56                ','
+57                   "CODELIST"
+58                ','
+3                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+59                   "LREQUIRED"
+60                ','
+61                   "KEYFIELD"
+62                ','
+63                   "NLOW"
+64                ','
+65                   "NHIGH"
+66                ','
+67                   "SLOW"
+68                ','
+69                   "SHIGH"
+70                ','
+71                   "SKIPCOND"
+72                ','
+73                   "RENDER"
+74                ','
+75                   "CALCBODY"
+76                ','
+77                   "CALCOPERAT"
+78                ','
+79                   "CALCEXPR"
+80                ','
+81                   "DEFAULTVAL"
+82                ','
+83                   "READONLY"
+84                ','
+85                   "NOREPORT"
+86                ','
+87                   "CVERSION"
+88                ','
+89                   "DDATE"
+90                ','
+91                   "IID"
+92                ','
+93                   "ISCREENID"
+94                ','
+95                   "SEQ"
+96                ','
+97                   "IFIELDID"
+98                ','
+99                   "IGRIDREF"
+100               ','
+101                  "ICODELISTI"
+102               ','
+103                  "OBJTYPE"
+104               ','
+105                  "QNUMBER"
+106               ','
+107                  "QTEXT"
+108               ','
+109                  "INDENT"
+110               ','
+111                  "LLABEL"
+4                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+112               ','
+113                  "RLABEL"
+114               ','
+115                  "ROW"
+116               ','
+117                  "COL"
+118               ','
+119                  "NGRIDLINE"
+120               ','
+121                  "SAMELINE"
+122               ','
+123                  "MISSING"
+124               ','
+125                  "IPROTJOIN"
+126               ','
+127                  "LSPAN"
+128               ','
+129                  "LLABELS"
+130               ','
+131                  "TEXTFLOW"
+132               ','
+133                  "ICALCFIELD"
+134               ','
+135                  "GOODANS"
+136               ','
+137                  "IANSTYPE"
+138               ','
+139                  "LVALIDSPEC"
+140               ','
+141                  "CVALIDSPEC"
+142               ','
+143                  "CBUTTONACT"
+144               ','
+145                  "NBSKIPCOND"
+146               ','
+147                  "MPOPHELP"
+148               ;
+149             end;
+150           set  PROTDATA.PROT_META   end=EFIEOD;
+151               format PROJID $3. ;
+152               format PROTSEG $6. ;
+153               format SCREENID $3. ;
+154               format SCREENNAME $100. ;
+155               format TABLE_NAME $8. ;
+156               format FIELD_NAME $10. ;
+157               format FIELD_TYPE $1. ;
+158               format FIELD_LEN 8. ;
+159               format FIELD_DEC 8. ;
+160               format FLDFORMAT $15. ;
+161               format CODELIST $20. ;
+162               format LREQUIRED 1. ;
+163               format KEYFIELD 1. ;
+164               format NLOW $60. ;
+5                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+165               format NHIGH $60. ;
+166               format SLOW $60. ;
+167               format SHIGH $60. ;
+168               format SKIPCOND $200. ;
+169               format RENDER $137. ;
+170               format CALCBODY $200. ;
+171               format CALCOPERAT $1. ;
+172               format CALCEXPR $200. ;
+173               format DEFAULTVAL $20. ;
+174               format READONLY 1. ;
+175               format NOREPORT 1. ;
+176               format CVERSION $5. ;
+177               format DDATE $8. ;
+178               format IID 4. ;
+179               format ISCREENID 4. ;
+180               format SEQ 4. ;
+181               format IFIELDID 4. ;
+182               format IGRIDREF 4. ;
+183               format ICODELISTI 4. ;
+184               format OBJTYPE $8. ;
+185               format QNUMBER 4. ;
+186               format QTEXT $200. ;
+187               format INDENT 4. ;
+188               format LLABEL $200. ;
+189               format RLABEL $200. ;
+190               format ROW 4. ;
+191               format COL 4. ;
+192               format NGRIDLINE 4. ;
+193               format SAMELINE 1. ;
+194               format MISSING 1. ;
+195               format IPROTJOIN 4. ;
+196               format LSPAN 1. ;
+197               format LLABELS 1. ;
+198               format TEXTFLOW 1. ;
+199               format ICALCFIELD 4. ;
+200               format GOODANS $200. ;
+201               format IANSTYPE 4. ;
+202               format LVALIDSPEC 1. ;
+203               format CVALIDSPEC $20. ;
+204               format CBUTTONACT $40. ;
+205               format NBSKIPCOND $200. ;
+206               format MPOPHELP $137. ;
+207             do;
+208               EFIOUT + 1;
+209               put PROJID $ @;
+210               put PROTSEG $ @;
+211               put SCREENID $ @;
+212               put SCREENNAME $ @;
+213               put TABLE_NAME $ @;
+214               put FIELD_NAME $ @;
+215               put FIELD_TYPE $ @;
+216               put FIELD_LEN @;
+217               put FIELD_DEC @;
+6                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+218               put FLDFORMAT $ @;
+219               put CODELIST $ @;
+220               put LREQUIRED @;
+221               put KEYFIELD @;
+222               put NLOW $ @;
+223               put NHIGH $ @;
+224               put SLOW $ @;
+225               put SHIGH $ @;
+226               put SKIPCOND $ @;
+227               put RENDER $ @;
+228               put CALCBODY $ @;
+229               put CALCOPERAT $ @;
+230               put CALCEXPR $ @;
+231               put DEFAULTVAL $ @;
+232               put READONLY @;
+233               put NOREPORT @;
+234               put CVERSION $ @;
+235               put DDATE $ @;
+236               put IID @;
+237               put ISCREENID @;
+238               put SEQ @;
+239               put IFIELDID @;
+240               put IGRIDREF @;
+241               put ICODELISTI @;
+242               put OBJTYPE $ @;
+243               put QNUMBER @;
+244               put QTEXT $ @;
+245               put INDENT @;
+246               put LLABEL $ @;
+247               put RLABEL $ @;
+248               put ROW @;
+249               put COL @;
+250               put NGRIDLINE @;
+251               put SAMELINE @;
+252               put MISSING @;
+253               put IPROTJOIN @;
+254               put LSPAN @;
+255               put LLABELS @;
+256               put TEXTFLOW @;
+257               put ICALCFIELD @;
+258               put GOODANS $ @;
+259               put IANSTYPE @;
+260               put LVALIDSPEC @;
+261               put CVALIDSPEC $ @;
+262               put CBUTTONACT $ @;
+263               put NBSKIPCOND $ @;
+264               put MPOPHELP $ ;
+265               ;
+266             end;
+267            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+267      ! */
+268            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+269            run;
+7                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+
+NOTE: The file 
+      'G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_D
+      ict_by_seq.csv' is:
+      
+      Filename=G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\005
+      3_Data_Dict_by_seq.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=15May2018:08:14:37,
+      Create Time=15May2018:08:14:37
+
+NOTE: 2444 records were written to the file 
+      'G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_D
+      ict_by_seq.csv'.
+      The minimum record length was 107.
+      The maximum record length was 475.
+NOTE: There were 2443 observations read from the data set PROTDATA.PROT_META.
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be 
+      shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.74 seconds
+      cpu time            0.06 seconds
+      
+
+2443 records created in 
+G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_Dict_by_
+seq.csv from PROTDATA.PROT_META.
+  
+  
+NOTE: "G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_D
+      ict_by_seq.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           3.07 seconds
+      cpu time            0.40 seconds
+      
+
+270        
+271        proc sort data= protdata.prot_meta;
+272        	by PROTSEG SCREENID FIELD_NAME;
+273        run;
+
+NOTE: There were 2443 observations read from the data set PROTDATA.PROT_META.
+NOTE: The data set PROTDATA.PROT_META has 2443 observations and 56 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           1.20 seconds
+      cpu time            0.03 seconds
+      
+
+274        
+275        proc export data= protdata.prot_meta
+276        	dbms=csv
+277        	replace
+278        	outfile='G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaDa
+8                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+278      ! ta\0053_Data_Dict_by_field_name.csv';
+279        run;
+
+280         /**********************************************************************
+281         *   PRODUCT:   SAS
+282         *   VERSION:   9.4
+283         *   CREATOR:   External File Interface
+284         *   DATE:      15MAY18
+285         *   DESC:      Generated SAS Datastep Code
+286         *   TEMPLATE SOURCE:  (None Specified.)
+287         ***********************************************************************/
+288            data _null_;
+289            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+290            %let _EFIREC_ = 0;     /* clear export record count macro variable */
+291            file
+291      ! 'G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_D
+291      ! ata_Dict_by_field_name.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+292            if _n_ = 1 then        /* write column names or labels */
+293             do;
+294               put
+295                  "PROJID"
+296               ','
+297                  "PROTSEG"
+298               ','
+299                  "SCREENID"
+300               ','
+301                  "SCREENNAME"
+302               ','
+303                  "TABLE_NAME"
+304               ','
+305                  "FIELD_NAME"
+306               ','
+307                  "FIELD_TYPE"
+308               ','
+309                  "FIELD_LEN"
+310               ','
+311                  "FIELD_DEC"
+312               ','
+313                  "FLDFORMAT"
+314               ','
+315                  "CODELIST"
+316               ','
+317                  "LREQUIRED"
+318               ','
+319                  "KEYFIELD"
+320               ','
+321                  "NLOW"
+322               ','
+323                  "NHIGH"
+324               ','
+325                  "SLOW"
+326               ','
+327                  "SHIGH"
+9                                         The SAS System               08:14 Tuesday, May 15, 2018
+
+328               ','
+329                  "SKIPCOND"
+330               ','
+331                  "RENDER"
+332               ','
+333                  "CALCBODY"
+334               ','
+335                  "CALCOPERAT"
+336               ','
+337                  "CALCEXPR"
+338               ','
+339                  "DEFAULTVAL"
+340               ','
+341                  "READONLY"
+342               ','
+343                  "NOREPORT"
+344               ','
+345                  "CVERSION"
+346               ','
+347                  "DDATE"
+348               ','
+349                  "IID"
+350               ','
+351                  "ISCREENID"
+352               ','
+353                  "SEQ"
+354               ','
+355                  "IFIELDID"
+356               ','
+357                  "IGRIDREF"
+358               ','
+359                  "ICODELISTI"
+360               ','
+361                  "OBJTYPE"
+362               ','
+363                  "QNUMBER"
+364               ','
+365                  "QTEXT"
+366               ','
+367                  "INDENT"
+368               ','
+369                  "LLABEL"
+370               ','
+371                  "RLABEL"
+372               ','
+373                  "ROW"
+374               ','
+375                  "COL"
+376               ','
+377                  "NGRIDLINE"
+378               ','
+379                  "SAMELINE"
+380               ','
+10                                        The SAS System               08:14 Tuesday, May 15, 2018
+
+381                  "MISSING"
+382               ','
+383                  "IPROTJOIN"
+384               ','
+385                  "LSPAN"
+386               ','
+387                  "LLABELS"
+388               ','
+389                  "TEXTFLOW"
+390               ','
+391                  "ICALCFIELD"
+392               ','
+393                  "GOODANS"
+394               ','
+395                  "IANSTYPE"
+396               ','
+397                  "LVALIDSPEC"
+398               ','
+399                  "CVALIDSPEC"
+400               ','
+401                  "CBUTTONACT"
+402               ','
+403                  "NBSKIPCOND"
+404               ','
+405                  "MPOPHELP"
+406               ;
+407             end;
+408           set  PROTDATA.PROT_META   end=EFIEOD;
+409               format PROJID $3. ;
+410               format PROTSEG $6. ;
+411               format SCREENID $3. ;
+412               format SCREENNAME $100. ;
+413               format TABLE_NAME $8. ;
+414               format FIELD_NAME $10. ;
+415               format FIELD_TYPE $1. ;
+416               format FIELD_LEN 8. ;
+417               format FIELD_DEC 8. ;
+418               format FLDFORMAT $15. ;
+419               format CODELIST $20. ;
+420               format LREQUIRED 1. ;
+421               format KEYFIELD 1. ;
+422               format NLOW $60. ;
+423               format NHIGH $60. ;
+424               format SLOW $60. ;
+425               format SHIGH $60. ;
+426               format SKIPCOND $200. ;
+427               format RENDER $137. ;
+428               format CALCBODY $200. ;
+429               format CALCOPERAT $1. ;
+430               format CALCEXPR $200. ;
+431               format DEFAULTVAL $20. ;
+432               format READONLY 1. ;
+433               format NOREPORT 1. ;
+11                                        The SAS System               08:14 Tuesday, May 15, 2018
+
+434               format CVERSION $5. ;
+435               format DDATE $8. ;
+436               format IID 4. ;
+437               format ISCREENID 4. ;
+438               format SEQ 4. ;
+439               format IFIELDID 4. ;
+440               format IGRIDREF 4. ;
+441               format ICODELISTI 4. ;
+442               format OBJTYPE $8. ;
+443               format QNUMBER 4. ;
+444               format QTEXT $200. ;
+445               format INDENT 4. ;
+446               format LLABEL $200. ;
+447               format RLABEL $200. ;
+448               format ROW 4. ;
+449               format COL 4. ;
+450               format NGRIDLINE 4. ;
+451               format SAMELINE 1. ;
+452               format MISSING 1. ;
+453               format IPROTJOIN 4. ;
+454               format LSPAN 1. ;
+455               format LLABELS 1. ;
+456               format TEXTFLOW 1. ;
+457               format ICALCFIELD 4. ;
+458               format GOODANS $200. ;
+459               format IANSTYPE 4. ;
+460               format LVALIDSPEC 1. ;
+461               format CVALIDSPEC $20. ;
+462               format CBUTTONACT $40. ;
+463               format NBSKIPCOND $200. ;
+464               format MPOPHELP $137. ;
+465             do;
+466               EFIOUT + 1;
+467               put PROJID $ @;
+468               put PROTSEG $ @;
+469               put SCREENID $ @;
+470               put SCREENNAME $ @;
+471               put TABLE_NAME $ @;
+472               put FIELD_NAME $ @;
+473               put FIELD_TYPE $ @;
+474               put FIELD_LEN @;
+475               put FIELD_DEC @;
+476               put FLDFORMAT $ @;
+477               put CODELIST $ @;
+478               put LREQUIRED @;
+479               put KEYFIELD @;
+480               put NLOW $ @;
+481               put NHIGH $ @;
+482               put SLOW $ @;
+483               put SHIGH $ @;
+484               put SKIPCOND $ @;
+485               put RENDER $ @;
+486               put CALCBODY $ @;
+12                                        The SAS System               08:14 Tuesday, May 15, 2018
+
+487               put CALCOPERAT $ @;
+488               put CALCEXPR $ @;
+489               put DEFAULTVAL $ @;
+490               put READONLY @;
+491               put NOREPORT @;
+492               put CVERSION $ @;
+493               put DDATE $ @;
+494               put IID @;
+495               put ISCREENID @;
+496               put SEQ @;
+497               put IFIELDID @;
+498               put IGRIDREF @;
+499               put ICODELISTI @;
+500               put OBJTYPE $ @;
+501               put QNUMBER @;
+502               put QTEXT $ @;
+503               put INDENT @;
+504               put LLABEL $ @;
+505               put RLABEL $ @;
+506               put ROW @;
+507               put COL @;
+508               put NGRIDLINE @;
+509               put SAMELINE @;
+510               put MISSING @;
+511               put IPROTJOIN @;
+512               put LSPAN @;
+513               put LLABELS @;
+514               put TEXTFLOW @;
+515               put ICALCFIELD @;
+516               put GOODANS $ @;
+517               put IANSTYPE @;
+518               put LVALIDSPEC @;
+519               put CVALIDSPEC $ @;
+520               put CBUTTONACT $ @;
+521               put NBSKIPCOND $ @;
+522               put MPOPHELP $ ;
+523               ;
+524             end;
+525            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable
+525      ! */
+526            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+527            run;
+
+NOTE: The file 
+      'G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_D
+      ict_by_field_name.csv' is:
+      
+      Filename=G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\005
+      3_Data_Dict_by_field_name.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=15May2018:08:14:40,
+      Create Time=15May2018:08:14:40
+
+13                                        The SAS System               08:14 Tuesday, May 15, 2018
+
+NOTE: 2444 records were written to the file 
+      'G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_D
+      ict_by_field_name.csv'.
+      The minimum record length was 107.
+      The maximum record length was 475.
+NOTE: There were 2443 observations read from the data set PROTDATA.PROT_META.
+NOTE: At least one W.D format was too small for the number to be printed. The decimal may be 
+      shifted by the "BEST" format.
+NOTE: DATA statement used (Total process time):
+      real time           0.64 seconds
+      cpu time            0.04 seconds
+      
+
+2443 records created in 
+G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_Dict_by_
+field_name.csv from PROTDATA.PROT_META.
+  
+  
+NOTE: "G:\NIDADSC\spitts\Python_Projects\DataDicts\Data_Dictionaries\NDB\0053_MetaData\0053_Data_D
+      ict_by_field_name.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.89 seconds
+      cpu time            0.06 seconds
+      
+
+528        
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           15.51 seconds
+      cpu time            1.17 seconds
+      
